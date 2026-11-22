@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahmad Chokhachian</title>
+<meta name="description" content="Ahmad Chokhachian, PhD candidate at Georgia Tech ISyE. Wind energy data science, Gaussian processes, agentic AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: scholarly, quiet, precise, like a well-set journal page
+   IDEA: a journal article: sidebar as author block, sections as numbered paper sections, a captioned figure
+   PICTURE: Figure 1, a wind power curve with turbine observations and a fitted curve
+   COLOUR and TYPE: white paper, near-black ink, deep blue links, Georgia Tech gold as hairline accent; Source Serif 4 + Source Sans 3
+   LAYOUT: fixed profile sidebar left, single reading column right; stacks on narrow screens */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#121417);--paper:light-dark(#fafaf7,#181b1f);--ink:light-dark(#1b1d21,#e4e6ea);
+--mute:light-dark(#5d636b,#9aa1aa);--link:light-dark(#1d4e89,#8db8ea);--rule:light-dark(#e3e1da,#2a2e34);
+--gold:light-dark(#a4925a,#c8b67c);--hi:light-dark(#f3efe2,#24221b)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:24px;scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:17.5px/1.65 "Source Serif 4",Georgia,serif;overflow-x:clip}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.sans{font-family:"Source Sans 3",system-ui,sans-serif}
+
+.page{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:280px minmax(0,1fr);gap:clamp(32px,5vw,72px);padding:clamp(28px,5vw,64px) max(5vw,18px)}
+
+/* sidebar */
+aside{position:sticky;top:40px;align-self:start}
+.photo{width:180px;height:180px;border-radius:50%;background:linear-gradient(150deg,#2b5d93,#0f2f52);display:grid;place-items:center;color:#fff;font:600 54px "Source Serif 4",serif;overflow:hidden;border:4px solid var(--bg);box-shadow:0 0 0 1px var(--rule)}
+.photo img{width:100%;height:100%;object-fit:cover}
+aside h1{font-size:30px;line-height:1.15;margin:22px 0 6px;font-weight:700}
+.title{color:var(--mute);font-size:16px;line-height:1.45;margin:0 0 18px}
+.side-list{list-style:none;margin:0;padding:18px 0 0;border-top:1px solid var(--rule);font:15.5px/1.4 "Source Sans 3",sans-serif}
+.side-list li{display:flex;gap:10px;align-items:center;min-height:36px}
+.side-list svg{width:18px;height:18px;flex:none;fill:var(--mute)}
+.side-list a{color:var(--ink)}.side-list a:hover{color:var(--link)}
+.toc{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule);display:flex;flex-direction:column;font:600 15px "Source Sans 3",sans-serif}
+.toc a{color:var(--mute);padding:6px 0}.toc a:hover{color:var(--link);text-decoration:none}
+
+/* main */
+main section{margin-bottom:56px}
+h2{font-size:27px;font-weight:600;margin:0 0 18px;padding-bottom:8px;border-bottom:1px solid var(--rule);position:relative}
+h2::after{content:"";position:absolute;left:0;bottom:-1px;width:56px;height:2px;background:var(--gold)}
+h2 .n{color:var(--gold);font-weight:400;margin-right:10px}
+h3{font-size:19px;font-weight:600;margin:0 0 4px}
+p{margin:0 0 14px}
+.lede{font-size:19px;line-height:1.6}
+.interests{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px;font:15px "Source Sans 3",sans-serif}
+.interests span{background:var(--hi);padding:4px 12px;border-radius:3px}
+
+figure{margin:26px 0 8px;background:var(--paper);border:1px solid var(--rule);padding:18px 18px 12px}
+.fig{position:relative;min-height:300px}.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+figcaption{font-size:15px;color:var(--mute);margin-top:10px;line-height:1.5}
+figcaption b{color:var(--ink);font-weight:600}
+
+/* research */
+.proj{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 18px;padding:16px 0;border-top:1px solid var(--rule)}
+.proj:first-of-type{border-top:0;padding-top:4px}
+.proj p{grid-column:1/-1;margin:0;color:var(--mute);font-size:16.5px}
+.status{font:600 13px "Source Sans 3",sans-serif;color:var(--mute);white-space:nowrap;align-self:center}
+.status.on{color:var(--gold)}
+
+/* news */
+.news{list-style:none;margin:0;padding:0}
+.news li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;padding:9px 0}
+.news time{font:600 14.5px/1.9 "Source Sans 3",sans-serif;color:var(--mute);white-space:nowrap}
+
+/* publications */
+.pubs{list-style:none;margin:0;padding:0;counter-reset:p}
+.pub{counter-increment:p;position:relative;padding:14px 0 14px 46px}
+.pub::before{content:"[" counter(p) "]";position:absolute;left:0;top:14px;color:var(--mute);font-size:16px}
+.pub .t{font-weight:600}
+.pub .a{color:var(--ink)}.pub .a u{text-decoration:none;border-bottom:1.5px solid var(--gold)}
+.pub .v{color:var(--mute);font-style:italic}
+.kind{font:600 12px "Source Sans 3",sans-serif;color:var(--gold);margin-left:6px;font-style:normal;white-space:nowrap}
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.acts a,.acts button{font:600 13px "Source Sans 3",sans-serif;border:1px solid var(--rule);background:none;color:var(--link);padding:4px 11px;border-radius:3px;cursor:pointer;min-height:32px;display:inline-flex;align-items:center}
+.acts a:hover,.acts button:hover{border-color:var(--link);text-decoration:none}
+pre{overflow-x:auto;background:var(--paper);border:1px solid var(--rule);padding:12px;font-size:13px;margin:10px 0 0;line-height:1.5}
+pre[hidden]{display:none}
+.subhead{font:600 14px "Source Sans 3",sans-serif;color:var(--mute);margin:22px 0 2px}
+
+/* teaching */
+.teach li{margin-bottom:6px}
+
+footer{border-top:1px solid var(--rule);padding-top:18px;color:var(--mute);font-size:14.5px}
+
+@media(max-width:900px){
+ .page{grid-template-columns:minmax(0,1fr)}
+ aside{position:static;display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 24px;align-items:center}
+ .photo{width:120px;height:120px;font-size:38px;grid-row:span 2}
+ aside h1{margin-top:0}
+ .side-list,.toc{grid-column:1/-1}
+ .side-list{display:flex;flex-wrap:wrap;gap:0 18px}
+ .toc{flex-direction:row;flex-wrap:wrap;gap:0 18px}
+}
+@media(max-width:560px){
+ aside{grid-template-columns:minmax(0,1fr)}
+ .photo{grid-row:auto}aside h1{margin-top:16px}
+ .news li{grid-template-columns:minmax(0,1fr);gap:0}
+ .fig{min-height:240px}
+ .pub{padding-left:36px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<aside>
+ <!-- Replace the initials with your photo: <img src="photo.jpg" alt="Ahmad Chokhachian"> -->
+ <div class="photo" aria-hidden="true">AC</div>
+ <div>
+  <h1>Ahmad Chokhachian</h1>
+  <p class="title">PhD Candidate<br>H. Milton Stewart School of Industrial and Systems Engineering<br>Georgia Institute of Technology</p>
+ </div>
+ <ul class="side-list">
+  <li><svg viewBox="0 0 24 24"><path d="M2 5h20v14H2zm2 2v.5l8 5 8-5V7zm16 2.8-8 5-8-5V17h16z"/></svg><a href="mailto:chokhachian@gatech.edu">chokhachian@gatech.edu</a></li>
+  <li><svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9zM5 13.2v4L12 21l7-3.8v-4L12 17z"/></svg><a href="https://scholar.google.com/citations?user=hi71vY8AAAAJ">Google Scholar</a></li>
+  <li><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.5 9.5 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg><a href="https://github.com/AhmadChokhachian">GitHub</a></li>
+  <li><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm2.5 7v8h2.6v-8zm1.3-4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 10v8h2.6v-4.2c0-1.1.4-1.9 1.5-1.9s1.3.9 1.3 2V18H19v-4.6c0-2.6-1.4-3.6-3.2-3.6-1.4 0-2.1.7-2.3 1.2V10z"/></svg><a href="https://www.linkedin.com/">LinkedIn</a></li>
+  <li><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6zm8 1.5V8h4.5zM9 12v1.5h8V12zm0 3v1.5h8V15zm0 3v1.5h5V18z"/></svg><a href="cv.pdf">Curriculum Vitae (PDF)</a></li>
+ </ul>
+ <nav class="toc" aria-label="Sections">
+  <a href="#about">About</a><a href="#news">News</a><a href="#research">Research</a><a href="#publications">Publications</a><a href="#teaching">Teaching</a>
+ </nav>
+</aside>
+
+<main>
+ <section id="about">
+  <h2><span class="n">§1</span>About</h2>
+  <p class="lede">I am a fourth-year PhD candidate in Industrial and Systems Engineering at Georgia Tech, advised by <a href="https://www.isye.gatech.edu/users/yu-ding">Prof. Yu Ding</a>.</p>
+  <p>My research develops statistical and machine learning methods for wind energy. I build Gaussian process models that scale to large, autocorrelated data. I design wind power curves that account for terrain and transfer across wind farms. I also develop agentic AI systems for early fault warning in wind turbines.</p>
+  <div class="interests"><span>Gaussian processes</span><span>Wind energy data science</span><span>Transfer learning</span><span>Uncertainty quantification</span><span>Agentic AI</span></div>
+  <figure>
+   <div class="fig"><svg id="pc" role="img" aria-label="Illustrative wind power curve with turbine observations and fitted curve"></svg></div>
+   <figcaption><b>Figure 1.</b> An illustrative wind power curve. Points are turbine observations; the line is a fitted curve. Estimating this relationship, and its uncertainty, sits at the center of my work.</figcaption>
+  </figure>
+ </section>
+
+ <section id="news">
+  <h2><span class="n">§2</span>News</h2>
+  <ul class="news" id="newslist"></ul>
+ </section>
+
+ <section id="research">
+  <h2><span class="n">§3</span>Research</h2>
+  <div id="projects"></div>
+ </section>
+
+ <section id="publications">
+  <h2><span class="n">§4</span>Publications</h2>
+  <div id="pubs"></div>
+  <p class="sans" style="font-size:15px;color:var(--mute);margin-top:14px">Full list on <a href="https://scholar.google.com/citations?user=hi71vY8AAAAJ">Google Scholar</a>.</p>
+ </section>
+
+ <section id="teaching">
+  <h2><span class="n">§5</span>Teaching</h2>
+  <p>Graduate Teaching Assistant, H. Milton Stewart School of Industrial and Systems Engineering, Georgia Tech.</p>
+  <ul class="teach">
+   <li>Designed the <a href="https://www.kaggle.com/competitions/isye-7406">Wind Power Curve Estimation</a> Kaggle competition for ISyE 7406 (2025).</li>
+   <li>Designed the <a href="https://www.kaggle.com/competitions/transaction-fraud-detection">Transaction Fraud Detection</a> Kaggle competition for ISyE 7406 (Fall 2026).</li>
+  </ul>
+ </section>
+
+ <footer>© 2026 Ahmad Chokhachian. Last updated November 2026.</footer>
+</main>
+</div>
+
+<script>
+{
+const news=[
+ {d:"Fall 2026",t:"Launched the <a href=\"https://www.kaggle.com/competitions/transaction-fraud-detection\">Transaction Fraud Detection</a> Kaggle competition for ISyE 7406."},
+ {d:"2026",t:"Our terrain-aware power curve paper is published in <i>Technometrics</i>."},
+ {d:"2026",t:"Our fast GP approximation paper is published in <i>INFORMS Journal on Data Science</i>."},
+ {d:"2026",t:"New preprint on cross-farm power curves posted on <a href=\"https://ssrn.com/abstract=7070433\">SSRN</a>."}
+];
+document.getElementById('newslist').innerHTML=news.map(n=>`<li><time>${n.d}</time><span>${n.t}</span></li>`).join('');
+
+const projects=[
+ {t:"Terrain-aware wind power curves",d:"A spatio-temporal Gaussian process that incorporates terrain into power curve estimation across a wind farm.",s:"Completed"},
+ {t:"Scalable Gaussian processes for autocorrelated data",d:"Fast GP approximations that keep accuracy when observations are correlated in time.",s:"Completed"},
+ {t:"Cross-farm power curves",d:"A domain-adapted power curve that transfers knowledge from data-rich farms to new farms.",s:"Ongoing"},
+ {t:"Agentic AI for turbine fault warning",d:"Agentic AI frameworks that detect gearbox faults early from turbine monitoring data.",s:"Ongoing"}
+];
+document.getElementById('projects').innerHTML=projects.map(p=>`<div class="proj"><h3>${p.t}</h3><span class="status${p.s==='Ongoing'?' on':''}">${p.s}</span><p>${p.d}</p></div>`).join('');
+
+const me='A. Chokhachian';
+const groups=[
+ {h:"Journal articles",items:[
+  {t:"Spatio-temporal Gaussian process for building terrain-incorporating wind power curves",a:["A. Chokhachian","V. R. Joseph","Y. Ding"],v:"Technometrics",y:2026,key:"chokhachian2026stgp",url:"https://scholar.google.com/citations?user=hi71vY8AAAAJ"},
+  {t:"Fast Gaussian process approximations for autocorrelated data",a:["A. Chokhachian","M. Katzfuss","Y. Ding"],v:"INFORMS Journal on Data Science",y:2026,key:"chokhachian2026fast",url:"https://scholar.google.com/citations?user=hi71vY8AAAAJ"}]},
+ {h:"Preprints",items:[
+  {t:"Domain-adapted power curve for cross-farm applications",a:["A. Chokhachian","R. V. Joseph","Y. Ding"],v:"SSRN 7070433",y:2026,key:"chokhachian2026domain",url:"https://ssrn.com/abstract=7070433",k:"Under review"}]},
+ {h:"Software and data competitions",items:[
+  {t:"DSWE: Data Science for Wind Energy",a:["N. Kumar","A. Prakash","Y. Ding","E. Latiffianti","A. Chokhachian"],v:"R package, CRAN",y:null,key:"dswe",url:"https://cran.r-project.org/package=DSWE"},
+  {t:"Transaction fraud detection Kaggle competition",a:["A. Chokhachian","Y. Ding"],v:"Kaggle",y:2026,key:"chokhachian2026fraud",url:"https://www.kaggle.com/competitions/transaction-fraud-detection"},
+  {t:"Wind power curve estimation Kaggle competition",a:["A. Chokhachian","Y. Ding"],v:"Kaggle",y:2025,key:"chokhachian2025wind",url:"https://www.kaggle.com/competitions/isye-7406"}]}
+];
+let i=0;const all=[];
+document.getElementById('pubs').innerHTML=groups.map(g=>`<div class="subhead">${g.h}</div><ol class="pubs" style="counter-reset:p ${all.length}">`+g.items.map(p=>{const n=i++;all.push(p);return `<li class="pub">
+ <span class="a">${p.a.map(x=>x===me?`<u>${x}</u>`:x).join(', ')}.</span>
+ <span class="t">${p.t}.</span>
+ <span class="v">${p.v}</span>${p.y?`, ${p.y}`:''}.${p.k?`<span class="kind">${p.k}</span>`:''}
+ <div class="acts"><a href="${p.url}">Link</a><button type="button" data-b="${n}" aria-expanded="false">BibTeX</button></div>
+ <pre id="bib${n}" hidden></pre></li>`}).join('')+`</ol>`).join('');
+all.forEach((p,n)=>{document.getElementById('bib'+n).textContent=`@article{${p.key},\n  title   = {${p.t}},\n  author  = {${p.a.join(' and ')}},\n  journal = {${p.v}},${p.y?`\n  year    = {${p.y}}`:''}\n}`});
+document.getElementById('pubs').addEventListener('click',e=>{
+ const b=e.target.closest('button[data-b]');if(!b)return;
+ const pre=document.getElementById('bib'+b.dataset.b);pre.hidden=!pre.hidden;b.setAttribute('aria-expanded',String(!pre.hidden));
+});
+
+/* Figure 1 */
+const s=document.getElementById('pc');
+let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const gauss=()=>{let u=0;while(!u)u=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*rnd())};
+const f=x=>x<3?0:x>=13.5?1:1/(1+Math.exp(-(x-8.3)*0.95));
+const pts=[];for(let k=0;k<300;k++){const x=rnd()*17.5+1;const sd=x>4&&x<13?0.06:0.025;pts.push([x,Math.max(0,Math.min(1.05,f(x)+gauss()*sd))])}
+const draw=()=>{
+ const W=s.clientWidth,H=s.clientHeight;if(!W||!H)return;
+ const sm=W<440,m={l:sm?38:52,r:14,t:12,b:sm?38:46};
+ const X=x=>m.l+x/20*(W-m.l-m.r),Y=y=>H-m.b-y/1.1*(H-m.t-m.b);
+ let g=`<rect x="${m.l}" y="${m.t}" width="${W-m.l-m.r}" height="${H-m.t-m.b}" fill="none" stroke="var(--rule)"/>`;
+ [0,.25,.5,.75,1].forEach(v=>{g+=`<line x1="${m.l}" x2="${m.l+4}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--mute)"/>`;if(!sm||v%0.5===0)g+=`<text x="${m.l-7}" y="${Y(v)+4}" text-anchor="end" font-size="12" fill="var(--mute)" font-family="Source Sans 3,sans-serif">${v.toFixed(sm?1:2)}</text>`});
+ [0,5,10,15,20].forEach(v=>{g+=`<line x1="${X(v)}" x2="${X(v)}" y1="${H-m.b}" y2="${H-m.b-4}" stroke="var(--mute)"/><text x="${X(v)}" y="${H-m.b+16}" text-anchor="middle" font-size="12" fill="var(--mute)" font-family="Source Sans 3,sans-serif">${v}</text>`});
+ g+=`<text x="${(W+m.l)/2}" y="${H-6}" text-anchor="middle" font-size="13" fill="var(--ink)" font-style="italic">Wind speed (m/s)</text>`;
+ g+=`<text transform="translate(13 ${(H-m.b+m.t)/2}) rotate(-90)" text-anchor="middle" font-size="13" fill="var(--ink)" font-style="italic">${sm?'Power':'Normalized power'}</text>`;
+ g+=pts.map(([x,y])=>`<circle cx="${X(x).toFixed(1)}" cy="${Y(y).toFixed(1)}" r="2.3" fill="none" stroke="var(--link)" stroke-opacity=".45"/>`).join('');
+ let d='';for(let x=0;x<=20;x+=0.1)d+=(d?'L':'M')+X(x).toFixed(1)+' '+Y(f(x)).toFixed(1);
+ g+=`<path d="${d}" fill="none" stroke="var(--gold)" stroke-width="2.6"/>`;
+ const lx=W-m.r-(sm?96:120),ly=Y(0.32);
+ g+=`<circle cx="${lx}" cy="${ly}" r="3" fill="none" stroke="var(--link)"/><text x="${lx+10}" y="${ly+4}" font-size="12.5" fill="var(--mute)" font-family="Source Sans 3,sans-serif">Observations</text>`;
+ g+=`<line x1="${lx-6}" x2="${lx+6}" y1="${ly+22}" y2="${ly+22}" stroke="var(--gold)" stroke-width="2.6"/><text x="${lx+10}" y="${ly+26}" font-size="12.5" fill="var(--mute)" font-family="Source Sans 3,sans-serif">Fitted curve</text>`;
+ s.innerHTML=g;
+};
+const ro=new ResizeObserver(draw);ro.observe(s);
+}
+</script>
+</body>
+</html>
