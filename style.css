@@ -68,8 +68,8 @@ pre[hidden]{display:none}
 .pub .v{color:var(--mute);font-style:italic}
 .badge{font:600 12px "Source Sans 3",sans-serif;color:var(--mute);border:1px solid var(--rule);padding:1px 7px;margin-left:6px;white-space:nowrap;font-style:normal}
 /* research */
-.proj{padding:20px 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px}
-.proj:first-of-type{border-top:0}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.proj{padding:20px 22px;background:var(--paper);border:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-content:start}
 .proj p{grid-column:1/-1;margin:4px 0 0;color:var(--mute)}
 .status{font:600 13px "Source Sans 3",sans-serif;color:var(--mute);white-space:nowrap}.status.on{color:var(--gold)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;grid-column:1/-1}
